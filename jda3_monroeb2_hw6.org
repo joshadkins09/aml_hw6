@@ -46,6 +46,16 @@
 
 # (0 points) Page 7: code for subproblems 3 and 4.
 
+# Did you use the common heuristic thresholds for your removal (i.e.
+
+# ##############################################################################
+
+# cooks.distance > 4/n,
+# leverage > 0.1,
+# abs(standardized_residuals) > 3
+
+# )? If I use those I'm getting more than 10 points.
+
 \clearpage
 * References
 ** useful links
@@ -56,3 +66,5 @@
    - https://stackoverflow.com/questions/27858474/car-package-not-found-by-r-failed-to-load
    - https://stackoverflow.com/questions/9476475/how-to-produce-leverage-stats
    - https://www.statmethods.net/management/sorting.html
+   - http://www.learnbymarketing.com/tutorials/linear-regression-in-r/
+   - https://stats.stackexchange.com/questions/46305/extracting-lambda-value-with-highest-log-likelihood-from-boxcox-output
