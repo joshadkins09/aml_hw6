@@ -1,0 +1,58 @@
+#+AUTHOR: Josh Adkins (jda3) and Trey Brooks (monroeb2)
+#+DATE: \today
+#+TITLE: CS498 AMO HW6
+#+OPTIONS:     H:2 num:t toc:nil \n:nil ::t |:t ^:t f:t tex:t ...
+#+LATEX_HEADER:     \usepackage[margin=2cm]{geometry}
+#+LATEX_HEADER:     \usepackage{listings}
+#+LATEX_HEADER:     \usepackage{minted}
+
+# (50 points) Regress house price (variable 14) against all others, and use
+# leverage, Cook's distance, and standardized residuals to find possible
+# outliers. Use plot(your_linear_regression_model) to produce a diagnostic plot
+# that allows you to identify possible outliers (points with high residual or
+# high leverage or high influence). Give the indices of possible outliers and
+# explain why you think they are outliers. The reason being an outlier may not
+# be same, so please be sure you understand the plot well. (You can read R
+# tutorial provided above if you have any questions).
+
+# (30 points) Remove all points you suspect as outliers, and compute a new
+# regression. Reproduce a diagnostic plot that allows you to identify possible
+# outliers. We do not require explanations this time.
+
+# (10 points) Apply a Box-Cox transformation (use boxcox command) to the
+# dependent variable, what is the best value of the parameter?
+
+# (10 points) Now transform the dependent variable, build a linear regression,
+# and check the standardized residuals. If they look acceptable, produce a plot
+# of fitted house price against true house price.
+
+# ##############################################################################
+
+# (0 points) Page 1: code for regression and resulting model.
+
+# (50 points) Page 2: a screenshot of your diagnostic plot and a few sentences
+# of your explanation.
+
+# (20 points) Page 3: a screenshot of your new diagnostic plot.
+
+# (10 points) Page 4: a screenshot of your code for subproblem 2.
+
+# (10 points) Page 5: a screenshot of Box-Cox transformation plot and the best
+# value you chose.
+
+# (10 points) Page 6: result of the standardized residuals of the regression
+# after Box-Cox transformation and a plot of fitted house price against true
+# house price.
+
+# (0 points) Page 7: code for subproblems 3 and 4.
+
+\clearpage
+* References
+** useful links
+   - https://www.datacamp.com/community/tutorials/r-data-import-tutorial
+   - https://stackoverflow.com/questions/14021675/how-to-add-header-to-a-dataset-in-r#14022113
+   - https://www.statmethods.net/stats/regression.html
+   - https://www.statmethods.net/stats/rdiagnostics.html
+   - https://stackoverflow.com/questions/27858474/car-package-not-found-by-r-failed-to-load
+   - https://stackoverflow.com/questions/9476475/how-to-produce-leverage-stats
+   - https://www.statmethods.net/management/sorting.html
