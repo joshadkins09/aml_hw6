@@ -68,3 +68,4 @@
    - https://www.statmethods.net/management/sorting.html
    - http://www.learnbymarketing.com/tutorials/linear-regression-in-r/
    - https://stats.stackexchange.com/questions/46305/extracting-lambda-value-with-highest-log-likelihood-from-boxcox-output
+   - https://www.computerworld.com/article/2486425/business-intelligence-4-data-wrangling-tasks-in-r-for-advanced-beginners.html?page=2#transform
