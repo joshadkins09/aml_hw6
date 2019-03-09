@@ -15,6 +15,7 @@
 # be same, so please be sure you understand the plot well. (You can read R
 # tutorial provided above if you have any questions).
 
+
 # (30 points) Remove all points you suspect as outliers, and compute a new
 # regression. Reproduce a diagnostic plot that allows you to identify possible
 # outliers. We do not require explanations this time.
@@ -56,7 +57,125 @@
 
 # )? If I use those I'm getting more than 10 points.
 
-\clearpage
+* Code for regression and resulting model
+  #+BEGIN_SRC R
+    # load data
+    df <- read.table("housing.data", header = FALSE)
+    colnames(df) <- c("crim", "zn", "indus", "chas", "nox", "rm", "age", "dis", "rad", "tax", "ptratio", "b", "lstat", "medv")
+
+    # generate regression model
+    model <- lm(medv ~ ., data=df)
+    plot(model_trimmed)
+  #+END_SRC
+  \clearpage
+
+* Diagnostic plots
+  #+BEGIN_CENTER
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/raw/res_vs_fit.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/raw/norm_qq.png]]
+  \\
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/raw/scale_location.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/raw/res_vs_lev.png]]
+  #+END_CENTER
+
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+
+  \clearpage
+* Code 2
+  #+BEGIN_SRC R
+    # remove outliers
+    trimmed <- df[-c(369, 372, 373, 370, 366, 368, 371, 413, 365), ]
+    model_trimmed <- lm(medv ~ ., data=trimmed)
+    plot(model_trimmed)
+  #+END_SRC
+  \clearpage
+
+* Trimmed
+  #+BEGIN_CENTER
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed/res_vs_fit.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed/norm_qq.png]]
+  \\
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed/scale_location.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed/res_vs_lev.png]]
+  #+END_CENTER
+
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+
+  \clearpage
+
+* boxcox
+  #+ATTR_LATEX: :float nil 
+  [[./images/boxcox.png]]
+
+  \clearpage
+
+* code 3
+  #+BEGIN_SRC R
+    library(MASS)
+    bc <- boxcox(model_trimmed)
+    lambda <- bc$x[which.max(bc$y)]
+    lambda
+
+    # transform using optimal lambda
+    transformed <-transform(trimmed, medv = (medv^(lambda) - 1)/lambda)
+    model_transformed <- lm(medv ~ ., data=transformed)
+    plot(model_transformed)
+
+    # fitted house price against true house price (transformed)
+    plot(fitted(model_transformed), transformed$medv)
+    abline(a=0, b=1)
+  #+END_SRC
+  \clearpage
+
+* all code
+  TODO: include all code -jadkins
+
 * References
 ** useful links
    - https://www.datacamp.com/community/tutorials/r-data-import-tutorial
