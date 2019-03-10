@@ -5,6 +5,8 @@ colnames(df) <- c("crim", "zn", "indus", "chas", "nox", "rm", "age", "dis", "rad
 
 # generate regression model
 model <- lm(medv ~ ., data=df)
+summary(model)
+
 plot(model)
 
 # functions for filtering list by values greater than paramater and sort in descending order
