@@ -5,6 +5,7 @@
 #+LATEX_HEADER:     \usepackage[margin=2cm]{geometry}
 #+LATEX_HEADER:     \usepackage{listings}
 #+LATEX_HEADER:     \usepackage{minted}
+#+LATEX_HEADER:     \setlength{\parindent}{0cm} \setlength{\parskip}{10pt}
 
 # (50 points) Regress house price (variable 14) against all others, and use
 # leverage, Cook's distance, and standardized residuals to find possible
@@ -76,26 +77,23 @@
   [[./images/raw/res_vs_lev.png]]
   #+END_CENTER
 
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
+  Based on the set of diagnostic plots from the regression we can identify a
+  couple of low hanging outliers. It is clear in all of the plots that rows 369,
+  372, and 373 are pretty far away from the rest of the data. To quantify this,
+  we also identified rows with standardized residuals greater than 3, rows with
+  leverage greater than 0.1, and rows with Cook's distance greater than 4/N
+  (where N is the number of rows so 506). In order to label an outlier with
+  confidence, we want to identify rows that raise flags by having a high value
+  in more than one metric.
+
+  The initial selections based off the plots were clearly verified by filtering
+  the data, as they were the top of the standardized residuals and Cook's
+  distance lists. Based on its high position in both Cook's and standardized
+  residuals, we also decided to label row 365 as an outlier.
+
+  From the visual examination of the diagnostic plots and verification with
+  standardized residual, leverage, and Cook's distance thresholds, we will label
+  the following rows as outliers: 369, 372, 373, and 365.
 
   \clearpage
 
@@ -115,26 +113,15 @@
   [[./images/trimmed_obvious/res_vs_lev.png]]
   #+END_CENTER
 
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
+  After seeing the diagnostic plots with the first round of egregious outliers
+  removed, we have decided also to label the following rows as outliers as well:
+
+  - 370
+  - 371
+  - 366
+  - 368
+  - 413
+  - 381
 
   \clearpage
 
@@ -152,26 +139,8 @@
   [[./images/trimmed/res_vs_lev.png]]
   #+END_CENTER
 
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
-  
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
-  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
-  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
-  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
-  Nam vestibulum accumsan nisl.
+  Here we have the diagnostic plots for the regression after removing outliers
+  revealed by removing the most egregious outliers.
 
   \clearpage
 
@@ -201,24 +170,6 @@
    The optimal value calculated for \lambda was 0.303030303030303
 
   \clearpage
-
-# * code 3
-#   #+BEGIN_SRC R
-#     library(MASS)
-#     bc <- boxcox(model_trimmed)
-#     lambda <- bc$x[which.max(bc$y)]
-#     lambda
-
-#     # transform using optimal lambda
-#     transformed <-transform(trimmed, medv = (medv^(lambda) - 1)/lambda)
-#     model_transformed <- lm(medv ~ ., data=transformed)
-#     plot(model_transformed)
-
-#     # fitted house price against true house price (transformed)
-#     plot(fitted(model_transformed), transformed$medv)
-#     abline(a=0, b=1)
-#   #+END_SRC
-#   \clearpage
 
 * Results
 

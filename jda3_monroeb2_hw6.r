@@ -39,8 +39,6 @@ trimmed_oo <- df[-c(369, 372, 373, 365), ]
 model_trimmed_oo <- lm(medv ~ ., data=trimmed_oo)
 plot(model_trimmed_oo)
 
-kkj
-
 # boxcox
 library(MASS)
 
