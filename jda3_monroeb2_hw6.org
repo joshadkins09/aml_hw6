@@ -232,6 +232,45 @@
 
    \clearpage
 
+* Code for subproblems 3 and 4
+
+  #+BEGIN_SRC r
+    # functions for filtering list by values greater than paramater and sort in descending order
+    filt_gt <- function(X, C) 
+    {
+       ifelse(X>C, TRUE, FALSE)
+    }
+
+    filt_gt_and_sort_desc <- function(X, C)
+    {
+        HX = X[filt_gt(X, C)]
+        SX = HX[order(-HX)]
+    }
+
+      # boxcox
+      library(MASS)
+
+      bc <- boxcox(model_trimmed)
+
+      lambda <- bc$x[which.max(bc$y)]
+      lambda
+
+      # transform using optimal lambda
+      transformed <-transform(trimmed, medv = (medv^(lambda) - 1)/lambda)
+      model_transformed <- lm(medv ~ ., data=transformed)
+      rdt <- abs(rstandard(model_transformed))
+      srdt <- filt_gt_and_sort_desc(rdt, 3)
+      srdt
+
+      plot(model_transformed)
+
+      # fitted house price against true house price (transformed)
+      plot(fitted(model_transformed), transformed$medv, xlab="Fitted House Price (transformed)", ylab="Actual House Price (transformed)")
+      abline(a=0, b=1)
+  #+END_SRC
+
+  \clearpage
+
 * Code Appendix
 
   #+include: "./jda3_monroeb2_hw6.r" src r -n

@@ -11,7 +11,7 @@ plot(model)
 
 # functions for filtering list by values greater than paramater and sort in descending order
 filt_gt <- function(X, C) 
-{ 
+{
    ifelse(X>C, TRUE, FALSE)
 }
 
