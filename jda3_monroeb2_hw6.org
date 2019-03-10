@@ -30,27 +30,19 @@
 # ##############################################################################
 
 # (0 points) Page 1: code for regression and resulting model.
-
 # (50 points) Page 2: a screenshot of your diagnostic plot and a few sentences
 # of your explanation.
-
 # (20 points) Page 3: a screenshot of your new diagnostic plot.
-
 # (10 points) Page 4: a screenshot of your code for subproblem 2.
-
 # (10 points) Page 5: a screenshot of Box-Cox transformation plot and the best
 # value you chose.
-
 # (10 points) Page 6: result of the standardized residuals of the regression
 # after Box-Cox transformation and a plot of fitted house price against true
 # house price.
-
 # (0 points) Page 7: code for subproblems 3 and 4.
-
-# Did you use the common heuristic thresholds for your removal (i.e.
-
 # ##############################################################################
 
+# Did you use the common heuristic thresholds for your removal (i.e.
 # cooks.distance > 4/n,
 # leverage > 0.1,
 # abs(standardized_residuals) > 3
@@ -58,6 +50,7 @@
 # )? If I use those I'm getting more than 10 points.
 
 * Code for regression and resulting model
+
   #+BEGIN_SRC R
     # load data
     df <- read.table("housing.data", header = FALSE)
@@ -68,8 +61,9 @@
     plot(model_trimmed)
   #+END_SRC
   \clearpage
+  
+* Raw Diagnostic Plots
 
-* Diagnostic plots
   #+BEGIN_CENTER
   #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
   [[./images/raw/res_vs_fit.png]]
@@ -104,16 +98,48 @@
   Nam vestibulum accumsan nisl.
 
   \clearpage
-* Code 2
-  #+BEGIN_SRC R
-    # remove outliers
-    trimmed <- df[-c(369, 372, 373, 370, 366, 368, 371, 413, 365), ]
-    model_trimmed <- lm(medv ~ ., data=trimmed)
-    plot(model_trimmed)
-  #+END_SRC
-  \clearpage
 
 * Trimmed
+
+** Remove Egregious outliers
+
+  #+BEGIN_CENTER
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed_obvious/res_vs_fit.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed_obvious/norm_qq.png]]
+  \\
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed_obvious/scale_location.png]]
+  #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
+  [[./images/trimmed_obvious/res_vs_lev.png]]
+  #+END_CENTER
+
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+  
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+  Nam vestibulum accumsan nisl.
+
+  \clearpage
+
+** Remove Remaining Outliers Based on Second Plots
+
   #+BEGIN_CENTER
   #+ATTR_LATEX: :float nil :width 0.40\textwidth :center
   [[./images/trimmed/res_vs_fit.png]]
@@ -149,32 +175,75 @@
 
   \clearpage
 
-* boxcox
-  #+ATTR_LATEX: :float nil 
-  [[./images/boxcox.png]]
+* Code for Subproblem 2
 
-  \clearpage
-
-* code 3
   #+BEGIN_SRC R
-    library(MASS)
-    bc <- boxcox(model_trimmed)
-    lambda <- bc$x[which.max(bc$y)]
-    lambda
+    # remove obvious outliers
+    trimmed_oo <- df[-c(369, 372, 373, 365), ]
+    model_trimmed_oo <- lm(medv ~ ., data=trimmed_oo)
+    plot(model_trimmed_oo)
 
-    # transform using optimal lambda
-    transformed <-transform(trimmed, medv = (medv^(lambda) - 1)/lambda)
-    model_transformed <- lm(medv ~ ., data=transformed)
-    plot(model_transformed)
-
-    # fitted house price against true house price (transformed)
-    plot(fitted(model_transformed), transformed$medv)
-    abline(a=0, b=1)
+    # remove remaining outliers based on revised plots
+    trimmed <- df[-c(369, 372, 373, 365, 370, 371, 366, 368, 413, 381), ]
+    model_trimmed <- lm(medv ~ ., data=trimmed)
+    plot(model_trimmed)
   #+END_SRC
   \clearpage
 
-* all code
-  TODO: include all code -jadkins
+* Box-Cox Transformation
+
+** Box-Cox Plot
+
+  #+ATTR_LATEX: :float nil 
+  [[./images/boxcox.png]]
+
+** Optimal \lambda Calculation
+   The optimal value calculated for \lambda was 0.303030303030303
+
+  \clearpage
+
+# * code 3
+#   #+BEGIN_SRC R
+#     library(MASS)
+#     bc <- boxcox(model_trimmed)
+#     lambda <- bc$x[which.max(bc$y)]
+#     lambda
+
+#     # transform using optimal lambda
+#     transformed <-transform(trimmed, medv = (medv^(lambda) - 1)/lambda)
+#     model_transformed <- lm(medv ~ ., data=transformed)
+#     plot(model_transformed)
+
+#     # fitted house price against true house price (transformed)
+#     plot(fitted(model_transformed), transformed$medv)
+#     abline(a=0, b=1)
+#   #+END_SRC
+#   \clearpage
+
+* Results
+
+** Standardized Residuals of Regression after Box-Cox
+
+   #+ATTR_LATEX: :align |c|c| :width 300px 
+|-----+------------------|
+| 375 | 4.13041065415358 |
+| 402 | 3.95986160610404 |
+| 408 | 3.51375911725592 |
+| 401 | 3.37748827480324 |
+| 506 | 3.34176565603684 |
+| 410 | 3.19379155742033 |
+| 215 | 3.04165942935875 |
+| 400 | 3.03941919432779 |
+|-----+------------------|
+
+** Fitted House Price vs. Actual House Price (transformed)
+
+   #+ATTR_LATEX: :float nil 
+   [[./images/predicted_vs_actual_transformed.png]]
+
+* Code Appendix
+
+  #+include: "./jda3_monroeb2_hw6.r" src r -n
 
 * References
 ** useful links
